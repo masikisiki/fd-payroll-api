@@ -1,0 +1,9 @@
+
+spring:
+  graphql:
+    graphiql:
+      enabled: true
+
+  data:
+    mongodb:
+      uri: mongodb+srv://${mongoDbUser}:${mongoDbPassword}@firmdev-db01.xafux.mongodb.net/firmdev-db01?retryWrites=true&w=
