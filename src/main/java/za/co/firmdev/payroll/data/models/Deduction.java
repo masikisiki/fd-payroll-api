@@ -14,7 +14,7 @@ public class Deduction {
     private String description;
     private String account;
     private DeductionType type;
-    private int ratePercent;
+    private double ratePercent;
     private int amount;
 
 

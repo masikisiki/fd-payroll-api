@@ -19,6 +19,8 @@ public class SequenceService {
     private static final String SALARY_DEDUCTION_SEQUENCE = "salary_deduction_sequence";
     private static final String EMPLOYEE_DEDUCTION_SEQUENCE = "employee_deduction_sequence";
 
+    private static final String PAYROLL_TRANSACTION_SEQUENCE = "payroll_transaction_sequence";
+
     //    private static final String EMPLOYEE_SEQUENCE = "employee_sequence";
 
 
@@ -41,6 +43,11 @@ public class SequenceService {
     public long nexEmpDeductionSequence() {
         return extracted(EMPLOYEE_DEDUCTION_SEQUENCE);
     }
+    public long nextPayrollSequence() {
+        return extracted(PAYROLL_TRANSACTION_SEQUENCE);
+    }
+
+
     private long extracted(String sequenceName) {
         DatabaseSequence counter = mongoOperations.findAndModify
                 (query(where("_id").is(sequenceName)),
