@@ -1,0 +1,16 @@
+substitutions:
+  _IMAGE_NAME: fd-payroll-api
+  _PROJECT_ID: fd-cloud-365812
+
+steps:
+  - name: maven:3.8.6-openjdk-18
+    entrypoint: mvn
+    args: ["package"]
+  - name: gcr.io/cloud-builders/docker
+    args: ["build", "-t", "us-east1-docker.pkg.dev/$PROJECT_ID/firmdev-cr2/${_IMAGE_NAME}", "."]
+  - name: gcr.io/cloud-builders/docker
+    args: ["push", "us-east1-docker.pkg.dev/$PROJECT_ID/firmdev-cr2/${_IMAGE_NAME}"]
+#   Deploy container image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args: ['run', 'deploy', 'fd-payroll-api', '--image', 'us-east1-docker.pkg.dev/$PROJECT_ID/firmdev-cr2/${_IMAGE_NAME}', '--region', 'us-east1']
