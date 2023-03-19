@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="FdPayrollApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ACTIVE_PROFILES" />
+    <envs>
+      <env name="monogoDbUrl" value="firmdev-db01.xafux.mongodb.net/firmdev-db01" />
+    </envs>
+    <module name="fd-payroll" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="za.co.firmdev.payroll.FdPayrollApplication" />
+    <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
+      <option name="credential" />
+      <option name="region" />
+      <option name="useCurrentConnection" value="false" />
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
