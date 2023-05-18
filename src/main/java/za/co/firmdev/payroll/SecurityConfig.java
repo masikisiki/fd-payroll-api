@@ -22,7 +22,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationSuccessHandler loginSuccessHandler) throws Exception {
         http.cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api-docs", "/api-docs/swagger-config", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+                        .requestMatchers("/api-docs", "/api-docs/swagger-config"
+                                , "/swagger-ui.html"
+                                , "/v3/**"
+                                , "/swagger-ui/**").permitAll()
                         .anyRequest().authenticated())
                 .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .oauth2Login().successHandler(loginSuccessHandler);
