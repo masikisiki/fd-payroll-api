@@ -13,10 +13,7 @@ public class SalaryMap {
     private long id;
     private long employeeId;
     private int ctcSalary;
-
     private LocalDate effectiveDate;
-
-
     public static final class SalaryMapBuilder {
         private long id;
         private long employeeId;

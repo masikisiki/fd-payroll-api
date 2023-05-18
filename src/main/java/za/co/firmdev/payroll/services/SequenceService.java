@@ -14,12 +14,12 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 @Service
 public class SequenceService {
 
-    private static final String EMPLOYEE_SEQUENCE = "employee_sequence";
-    private static final String SALARY_SEQUENCE = "salary_map_sequence";
-    private static final String SALARY_DEDUCTION_SEQUENCE = "salary_deduction_sequence";
-    private static final String EMPLOYEE_DEDUCTION_SEQUENCE = "employee_deduction_sequence";
+    public static final String EMPLOYEE_SEQUENCE = "employee_sequence";
+    public static final String SALARY_SEQUENCE = "salary_map_sequence";
+    public static final String SALARY_DEDUCTION_SEQUENCE = "salary_deduction_sequence";
+    public static final String EMPLOYEE_DEDUCTION_SEQUENCE = "employee_deduction_sequence";
 
-    private static final String PAYROLL_TRANSACTION_SEQUENCE = "payroll_transaction_sequence";
+    public static final String PAYROLL_TRANSACTION_SEQUENCE = "payroll_transaction_sequence";
 
     //    private static final String EMPLOYEE_SEQUENCE = "employee_sequence";
 
@@ -53,6 +53,14 @@ public class SequenceService {
                 (query(where("_id").is(sequenceName)),
                 new Update().inc("seq",1), options().returnNew(true).upsert(true),
                 DatabaseSequence.class);
+        return !Objects.isNull(counter) ? counter.getSeq() : 1;
+    }
+
+    public static long next(String sequenceName, MongoOperations mongoOperations){
+        DatabaseSequence counter = mongoOperations.findAndModify
+                (query(where("_id").is(sequenceName)),
+                        new Update().inc("seq",1), options().returnNew(true).upsert(true),
+                        DatabaseSequence.class);
         return !Objects.isNull(counter) ? counter.getSeq() : 1;
     }
 }

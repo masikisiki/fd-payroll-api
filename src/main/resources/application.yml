@@ -6,7 +6,7 @@ spring:
 
   data:
     mongodb:
-      uri: mongodb+srv://${mongoDbUser}:${mongoDbPassword}@firmdev-db01.xafux.mongodb.net/firmdev-db01?retryWrites=true&w=
+      uri: mongodb+srv://${mongoDbUser}:${mongoDbPassword}@firmdev-db01.xafux.mongodb.net/firmdev-db01?retryWrites=true&w=majority
 
   security:
     oauth2:
@@ -17,13 +17,14 @@ spring:
         registration:
           github:
             clientId: 431f50bac32f4e73a9fe
-            client-secret: 1d082e0e422644ec552e5a6c881cfd69df2f2e3a
+            client-secret: ${GITHUB_CLIENT_SECRET}
             scope:
               - email
               - profile
           google:
             clientId: 808999299518-nqc1g2maolb0sbnrgev6gn10s600ac6m.apps.googleusercontent.com
-            client-secret: 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
+            client-secret: ${GOOGLE_CLIENT_SECRET}
             scope:
               - email
               - profile
+

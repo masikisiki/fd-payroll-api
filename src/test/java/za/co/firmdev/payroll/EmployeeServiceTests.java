@@ -1,6 +1,6 @@
 package za.co.firmdev.payroll;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -40,7 +40,7 @@ public class EmployeeServiceTests {
     @Mock
     SequenceService sequenceService;
 
-    @Before
+    @BeforeEach
     public void init() {
         MockitoAnnotations.openMocks(this);
     }

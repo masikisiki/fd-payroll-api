@@ -1,8 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="FdPayrollApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-    <option name="ACTIVE_PROFILES" />
     <envs>
-      <env name="monogoDbUrl" value="firmdev-db01.xafux.mongodb.net/firmdev-db01" />
+      <env name="GOOGLE_CLIENT_SECRET" value="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" />
+      <env name="monogoDbUrl" value="firmdev-db01.xafux.mongodb.net/firmdev-db01?w=majority" />
+      <env name="GITHUB_CLIENT_SECRET" value="1d082e0e422644ec552e5a6c881cfd69df2f2e3a" />
     </envs>
     <module name="fd-payroll" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="za.co.firmdev.payroll.FdPayrollApplication" />
