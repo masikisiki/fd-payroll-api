@@ -2,6 +2,7 @@ package za.co.firmdev.payroll;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
@@ -12,6 +13,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import za.co.firmdev.payroll.data.models.UserAccountBuilder;
 import za.co.firmdev.payroll.data.repository.UserAccountRepository;
+
+import java.util.Arrays;
+import java.util.Optional;
 
 @Configuration
 public class SecurityConfig {
@@ -34,7 +38,7 @@ public class SecurityConfig {
 
 
     @Bean
-    public AuthenticationSuccessHandler onLoginSuccessHandler(UserAccountRepository accountRepository) {
+    public AuthenticationSuccessHandler onLoginSuccessHandler(UserAccountRepository accountRepository, Environment env) {
         return (request, response, authentication) -> {
             var user = (DefaultOAuth2User) authentication.getPrincipal();
             if (user != null) {
@@ -48,12 +52,20 @@ public class SecurityConfig {
                     if (!accountRepository.existsById(userAccount.getId())) {
                         accountRepository.save(userAccount);
                     }
-                    var baseUrl = request.getHeader("X-Forwarded-Host");
-                    new DefaultRedirectStrategy().sendRedirect(request, response, baseUrl+"/user/profile/" + userAccount.getId());
+                    var baseUrl = getBaseUrl(env);
+                    new DefaultRedirectStrategy().sendRedirect(request, response, baseUrl + "/user/profile/" + userAccount.getId());
                 }
             } else {
                 throw new RuntimeException("Could not retrieve user details");
             }
         };
+    }
+
+    private String getBaseUrl(Environment env) {
+        Optional<String> profile = Arrays.stream(env.getActiveProfiles()).findFirst();
+        if (profile.isPresent() && profile.get().equals("prod")) {
+            return Optional.of(System.getenv("BASE_URL")).orElse("http://localhost:8080");
+        }
+        return "http://localhost:8080";
     }
 }
