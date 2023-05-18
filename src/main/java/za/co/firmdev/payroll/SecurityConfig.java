@@ -48,7 +48,8 @@ public class SecurityConfig {
                     if (!accountRepository.existsById(userAccount.getId())) {
                         accountRepository.save(userAccount);
                     }
-                    new DefaultRedirectStrategy().sendRedirect(request, response, "/user/profile/" + userAccount.getId());
+                    var baseUrl = request.getHeader("X-Forwarded-Host");
+                    new DefaultRedirectStrategy().sendRedirect(request, response, baseUrl+"/user/profile/" + userAccount.getId());
                 }
             } else {
                 throw new RuntimeException("Could not retrieve user details");
