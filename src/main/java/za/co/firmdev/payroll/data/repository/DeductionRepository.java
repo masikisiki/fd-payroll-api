@@ -6,7 +6,7 @@ import za.co.firmdev.payroll.data.models.Deduction;
 
 import java.util.List;
 
-@RepositoryRestResource(collectionResourceRel = "deduction", path = "deduction")
+//@RepositoryRestResource(collectionResourceRel = "deduction", path = "deduction")
 public interface DeductionRepository extends MongoRepository<Deduction, Long> {
     boolean existsAllByNameIn(List<String> names);
 

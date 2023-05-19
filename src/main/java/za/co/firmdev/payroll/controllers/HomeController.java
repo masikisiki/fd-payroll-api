@@ -14,6 +14,6 @@ public class HomeController {
     @GetMapping
     public String home() {
         SecurityContext context = SecurityContextHolder.getContext();
-        return "Welcome Home! here.."+context.getAuthentication().getPrincipal();
+        return "Welcome Home! here.."+context.getAuthentication().getName();
     }
 }

@@ -36,25 +36,23 @@ public class SecurityConfig {
         return http.build();
     }
 
-
     @Bean
     public AuthenticationSuccessHandler onLoginSuccessHandler(UserAccountRepository accountRepository, Environment env) {
         return (request, response, authentication) -> {
             var user = (DefaultOAuth2User) authentication.getPrincipal();
-            if (user != null) {
-                if (authentication instanceof OAuth2AuthenticationToken) {
-                    var registrationId = ((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId();
-                    var userAccount = switch (registrationId) {
-                        case GOOGLE -> UserAccountBuilder.anUserAccount().buildWithGoogleOauthUser(user);
-                        case GITHUB -> UserAccountBuilder.anUserAccount().buildWithGitHubOauthUser(user);
-                        default -> throw new IllegalArgumentException("Invalid registrationId");
-                    };
-                    if (!accountRepository.existsById(userAccount.getId())) {
-                        accountRepository.save(userAccount);
-                    }
-                    var baseUrl = getBaseUrl(env);
-                    new DefaultRedirectStrategy().sendRedirect(request, response, baseUrl + "/user/profile/" + userAccount.getId());
+            if (user != null && authentication instanceof OAuth2AuthenticationToken) {
+                var registrationId = ((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId();
+                var userAccount = switch (registrationId) {
+                    case GOOGLE -> UserAccountBuilder.anUserAccount().buildWithGoogleOauthUser(user);
+                    case GITHUB -> UserAccountBuilder.anUserAccount().buildWithGitHubOauthUser(user);
+                    default -> throw new IllegalArgumentException("Invalid registrationId");
+                };
+                if (!accountRepository.existsById(userAccount.getId())) {
+                    accountRepository.save(userAccount);
                 }
+
+                var baseUrl = getBaseUrl(env);
+                new DefaultRedirectStrategy().sendRedirect(request, response, baseUrl + "/user/profile/" + userAccount.getId());
             } else {
                 throw new RuntimeException("Could not retrieve user details");
             }

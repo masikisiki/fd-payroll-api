@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface EmployeeDeductionRepository extends MongoRepository<EmployeeDeduction, Long> {
 
-
     List<EmployeeDeduction> findAllByEmployeeId(long employeeId);
 }

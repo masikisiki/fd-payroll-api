@@ -22,7 +22,7 @@ spring:
               - email
               - profile
           google:
-            clientId: 808999299518-nqc1g2maolb0sbnrgev6gn10s600ac6m.apps.googleusercontent.com
+            clientId: 969997646195-p14njrvqu1t4kh969jd2tvfug9fujasr.apps.googleusercontent.com
             client-secret: ${GOOGLE_CLIENT_SECRET}
             scope:
               - email

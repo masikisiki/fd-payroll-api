@@ -3,7 +3,10 @@ package za.co.firmdev.payroll.controllers;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+
+@RestController
 @RequestMapping("/login/oauth2/code")
 public class OAuthClientLogin {
 
@@ -17,3 +20,5 @@ public class OAuthClientLogin {
         return client;
     }
 }
+
+
