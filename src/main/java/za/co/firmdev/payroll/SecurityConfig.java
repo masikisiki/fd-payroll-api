@@ -26,7 +26,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationSuccessHandler loginSuccessHandler) throws Exception {
         http.cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api-docs", "/api-docs/swagger-config"
+                        .requestMatchers(
+                                "/login/**"
+                                ,"/api-docs"
+                                , "/api-docs/swagger-config"
                                 , "/swagger-ui.html"
                                 , "/v3/**"
                                 , "/swagger-ui/**").permitAll()
